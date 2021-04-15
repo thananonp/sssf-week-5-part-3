@@ -5,7 +5,7 @@ window.addEventListener('load', async () => {
     const refresh = document.querySelector('#refresh');
     const form = document.querySelector('form');
     const username = 'thananonp';
-    const greeting = form.elements.greeting;
+    const animalForm = form.elements.greeting;
     // console.log('hello');
 
     // if ("serviceWorker" in navigator) {
@@ -39,17 +39,15 @@ window.addEventListener('load', async () => {
                 form.addEventListener("submit", async (event) => {
                     event.preventDefault();
                     const message = {
-                        username,
-                        greeting: greeting.value,
+                        animalName: animalForm.value,
                     };
                     console.log("message",message)
                     try {
-                        await saveChatData("outbox", message);
+                        await saveNewAnimalData("outbox", message);
                         await register.sync.register("send-message");
                     } catch (e) {
                         console.error(e.message);
                     } finally {
-
                         await init()
                     }
                 });
@@ -63,13 +61,13 @@ window.addEventListener('load', async () => {
     const init = async () => {
         const data = [];
         try {
-            const greetings = await getGreetingsByUser(username);
+            const greetings = await getAnimals(username);
             for (const message of greetings) {
                 data.push(message);
             }
             ul.innerHTML = '';
             data.forEach(item => {
-                ul.innerHTML += `<ul>${item.username}: ${item.greeting}</ul>`;
+                ul.innerHTML += `<ul>${item.animalName}</ul>`;
             });
         } catch (e) {
             console.log(e.message);

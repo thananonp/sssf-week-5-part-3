@@ -28,24 +28,24 @@ request.onsuccess = (result) => {
     }
 }
 
-const saveChatData = (name, message) => {
-    console.log("SaveChatData")
+const saveNewAnimalData = (name, message) => {
+    console.log("saveNewAnimalData")
     return new Promise(((resolve, reject) => {
         const transaction = db.transaction(name, "readwrite")
         const store = transaction.objectStore(name)
         store.put(message)
         transaction.oncomplete = () => {
-            console.log("Store put complete")
+            console.log("Store complete")
             resolve(true)
         }
         transaction.onerror = () => {
-            console.error("Store put error")
+            console.error("Store error")
             reject(false)
         }
     }))
 }
 
-const loadChatData = (name) => {
+const loadNewAnimalData = (name) => {
     return new Promise((resolve, reject) => {
         const transaction = db.transaction(name, "readwrite");
         const store = transaction.objectStore(name);
@@ -61,7 +61,7 @@ const loadChatData = (name) => {
     })
 }
 
-const clearChatData = (name) => {
+const clearNewAnimalData = (name) => {
     return new Promise(((resolve, reject) => {
         const transaction = db.transaction(name, "readwrite")
         const store = transaction.objectStore(name)

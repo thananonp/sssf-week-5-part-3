@@ -8,7 +8,8 @@ const fetchGraphql = async (query) => {
         body: JSON.stringify(query),
     };
     try {
-        const response = await fetch('https://localhost:3000/graphql', options);
+        console.log("options", options)
+        const response = await fetch('http://localhost:3000/graphql', options);
         // const response = await fetch('https://greeting.jelastic.metropolia.fi/graphql', options);
         const json = await response.json();
         return json.data;
@@ -18,35 +19,34 @@ const fetchGraphql = async (query) => {
     }
 };
 
-const saveGreeting = async (message) => {
-    const query = {
+const addAnimal = async (message) => {
+    console.log("ADD aniaml")
+    const ADD_ANIMAL_MUTATION = {
         query: `
-            mutation VariableTest($username: String!, $greeting: String!) {
-              addGreeting(username: $username, greeting: $greeting) {
-                username
-                greeting
-                time
-              }
-            }`,
+            mutation VariableTest($animalName: String!) {
+                  addAnimal(animalName: $animalName, species: "6061a06623903420e0e53ed1") {
+                      animalName  }
+                      }`
+        ,
         variables: message,
     };
-    const data = await fetchGraphql(query);
-    return data.addGreeting;
+    console.log("addAnimal Query", ADD_ANIMAL_MUTATION)
+    const data = await fetchGraphql(ADD_ANIMAL_MUTATION);
+    console.log("Adding Animal", data)
+    return data.addAnimal;
 };
 
-const getGreetingsByUser = async (user) => {
-    console.log("Getting new message")
-    const otherQuery = {
+const getAnimals = async (user) => {
+    // console.log("Getting animals")
+    const query = {
         query: `
             {
-              greetingsByUser(username: "${user}"){
-                id
-                username
-                greeting
-                time
+              animals{
+                animalName
               }
-            }`,
+            }`
     };
-    const data = await fetchGraphql(otherQuery);
-    return data.greetingsByUser;
+    const data = await fetchGraphql(query);
+    console.log("Getting animals", data)
+    return data.animals;
 };

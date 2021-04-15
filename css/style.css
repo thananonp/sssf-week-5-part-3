@@ -1,6 +1,12 @@
-body {
-  font-family: sans-serif;
+@font-face {
+  font-family: Inconsolata;
+  src: url("../fonts/Inconsolata.ttf");
 }
+body {
+  font-family: Inconsolata;
+}
+
+
 
 /* Make content area fill the entire browser window */
 html,

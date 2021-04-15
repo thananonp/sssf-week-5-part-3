@@ -9,7 +9,8 @@ const filesToCache = [
     './css/style.css',
     './js/main.js',
     './js/idb.js',
-    './images/pwa.png',
+    './images/doggy.gif',
+    './fonts/Inconsolata.ttf',
 ];
 
 /* Start the service worker and cache all of the app's content */
@@ -47,12 +48,16 @@ self.addEventListener("sync", (event) => {
 
 const sendToServer = async () => {
     try {
-        const outbox = await loadChatData("outbox")
+        const outbox = await loadNewAnimalData("outbox")
+        console.log("outbox", outbox)
         const sentMessages = await Promise.all(
-            outbox.map(async (message) => await saveGreeting(message))
+            outbox.map(async (message) => {
+                console.log("message", message)
+                await addAnimal(message)
+            })
         )
         console.log("sent messages", sentMessages)
-        await clearChatData("outbox")
+        await clearNewAnimalData("outbox")
     } catch (e) {
         console.log(e.message);
     }
