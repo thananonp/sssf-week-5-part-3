@@ -36,8 +36,7 @@ const addAnimal = async (message) => {
     return data.addAnimal;
 };
 
-const getAnimals = async (user) => {
-    // console.log("Getting animals")
+const getAnimals = async () => {
     const query = {
         query: `
             {

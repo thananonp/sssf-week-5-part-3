@@ -60,9 +60,16 @@ window.addEventListener('load', async () => {
 
     const init = async () => {
         const data = [];
+        let lastestCache = []
         try {
-            const greetings = await getAnimals(username);
-            for (const message of greetings) {
+            const greetings = await getAnimals();
+            await saveNewAnimalData("cache", greetings)
+            const cache = await loadNewAnimalData("cache")
+            const lastestCache = cache.pop()
+            console.log("greetings", greetings)
+            console.log("lastestCache", lastestCache)
+            console.log("cache", cache)
+            for (const message of lastestCache) {
                 data.push(message);
             }
             ul.innerHTML = '';

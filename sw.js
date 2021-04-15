@@ -58,6 +58,7 @@ const sendToServer = async () => {
         )
         console.log("sent messages", sentMessages)
         await clearNewAnimalData("outbox")
+        await clearNewAnimalData("cache")
     } catch (e) {
         console.log(e.message);
     }

@@ -12,7 +12,7 @@ request.onupgradeneeded = (IDBVersionChangeEvent) => {
     console.log("onupgradeneeded");
     const db = request.result;
     db.createObjectStore("outbox", { autoIncrement: true });
-    db.createObjectStore("inbox", { autoIncrement: true });
+    db.createObjectStore("cache", { autoIncrement: true });
 };
 
 
